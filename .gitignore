@@ -1,0 +1,12 @@
+# build output
+build/
+.gradle/
+
+# third-party runtime jars (C2ME is ARR-licensed and must not be redistributed;
+# TF/fabric-loader/asm/etc. are fetched per the README before building)
+libs/*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/

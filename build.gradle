@@ -1,0 +1,35 @@
+// Plain java build — no loom needed:
+// this compat mod never calls Minecraft members directly (class names only),
+// and MC 26.2 ships unobfuscated, so no remapping is required at all.
+plugins {
+	id 'java'
+}
+
+group = maven_group
+version = "${mod_version}+mc${minecraft_version}"
+
+base {
+	archivesName = mod_id
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly fileTree(dir: 'libs', include: '*.jar')
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = 'UTF-8'
+}
+
+jar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

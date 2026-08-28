@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "tfc2mecompat",
+	"version": "1.0.0+mc26.2",
+	"name": "Twilight Forest - C2ME Density Function Compat",
+	"description": "Registers Twilight Forest's custom density functions into C2ME's DFC compiler (JVM bytecode + OpenCL), so the Twilight Forest dimension can use C2ME's optimized worldgen pipelines without crashing.",
+	"authors": ["Lonmo"],
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["dev.lonmo.tfc2mecompat.TfC2meCompat"]
+	},
+	"depends": {
+		"fabricloader": ">=0.18.3",
+		"minecraft": "26.2",
+		"twilightforest": "*",
+		"c2me": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"parent": "c2me"
+		}
+	}
+}
