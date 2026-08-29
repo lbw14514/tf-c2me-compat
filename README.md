@@ -1,7 +1,6 @@
 # tf-c2me-compat（暮色森林 × C2ME 兼容补丁）
 
-> **适用于**：MC **26.1.x / 26.2 / 26w14a**，Fabric 与 NeoForge 双加载器，对应暮色森林 [Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 的全部生产分支（26.1.x / 26.1.x-Fabric / 26.2.x / 26.2.x-Fabric / 26w14a / 26w14a-Fabric），C2ME 对应版本。**不支持** 26.3 开发线（`26.3.x-Fabric-dev`，尚在开发中、未实测 26.3c2me本就不稳定 api等等变化就失效 所以没做）。详见下方版本对应表。
-
+> **适用于**：MC **26.1.x / 26.2.x / 26w14a**，Fabric 与 NeoForge 双加载器，对应暮色森林 [Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 的全部生产分支（26.1.x / 26.2.x / 26w14a），C2ME 对应版本。**不支持** 26.3 开发线（`26.3.x-Fabric（-dev），尚在开发中、未实测 26.3 c2me本就不稳定（测试阶段） api未来变化就失效 所以没做）。
 ## 这是什么
 
 一个让 **暮色森林**（[Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 各生产分支）和 **C2ME** 兼容的补丁 mod。
@@ -30,8 +29,8 @@ C2ME 是区块生成性能优化 mod。
    - C2ME（[Modrinth](https://modrinth.com/mod/c2me)，对应你的加载器与 MC 版本）
    - Fabric API（仅 Fabric 端需要）
    - **本 mod**（去 [Releases](../../releases) 下载，或自行构建）
-2. 可选：想启用 OpenCL GPU 加速，再装 [C2ME OpenCL 模块](https://modrinth.com/mod/c2me-ocl)（匹配 C2ME 版本）和 ScalableLux；
-3. 不需要任何配置。装完进游戏即可。
+2. 启用 OpenCL GPU 加速：装 [C2ME OpenCL 模块](https://modrinth.com/mod/c2me-ocl)（匹配你的 C2ME 版本）和 [ScalableLux](https://modrinth.com/mod/scalablelux)；
+3. 进游戏即可。
 
 日志里出现 `[TF-C2ME-Compat] Twilight Forest <-> C2ME dfc bindings active` 就说明生效了。
 
