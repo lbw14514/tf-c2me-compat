@@ -1,5 +1,7 @@
 # tf-c2me-compat（暮色森林 × C2ME 兼容补丁）
 
+> **适用于**：MC **26.1.x / 26.2 / 26w14a**，Fabric 与 NeoForge 双加载器，对应暮色森林 [Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 的全部生产分支（26.1.x / 26.1.x-Fabric / 26.2.x / 26.2.x-Fabric / 26w14a / 26w14a-Fabric），C2ME 对应版本。**不支持** 26.3 开发线。详见下方版本矩阵。
+
 ## 这是什么
 
 一个让 **暮色森林**（[Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 的各生产分支）和 **C2ME** 完全兼容的补丁 mod。
