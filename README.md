@@ -36,7 +36,7 @@ C2ME 是区块生成性能优化 mod。
 日志里出现 `[TF-C2ME-Compat] Twilight Forest <-> C2ME dfc bindings active` 就说明生效了。
 
 
-## 自行构建（给开发者）
+## 自行构建（给开发者）和上面的进行区分qwq
 
 不使用 loom：本 mod 不调用任何 Minecraft 成员（只用类名做泛型边界），MC 26.x 已不混淆，无需重映射。
 
