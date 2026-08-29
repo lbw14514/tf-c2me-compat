@@ -26,9 +26,9 @@ public final class OpenclFallbackEnabler {
 	private OpenclFallbackEnabler() {
 	}
 
-	public static void enable() {
+	public static void enable(Path configDir) {
 		forceInMemoryFlag();
-		patchConfigFile();
+		patchConfigFile(configDir);
 	}
 
 	/** Flip C2ME's static final config field for the current session. */
@@ -54,9 +54,9 @@ public final class OpenclFallbackEnabler {
 	}
 
 	/** Persist the flag (and GPU device permission) into c2me.toml for future launches. */
-	private static void patchConfigFile() {
+	private static void patchConfigFile(Path configDir) {
 		try {
-			Path config = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir().resolve("c2me.toml");
+			Path config = configDir.resolve("c2me.toml");
 			if (!Files.exists(config)) {
 				return;
 			}

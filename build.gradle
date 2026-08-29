@@ -1,12 +1,14 @@
 // Plain java build — no loom needed:
 // this compat mod never calls Minecraft members directly (class names only),
-// and MC 26.2 ships unobfuscated, so no remapping is required at all.
+// and MC 26.x ships unobfuscated, so no remapping is required at all.
+// Produces two jars: Fabric (fabric.mod.json) and NeoForge (neoforge.mods.toml);
+// the binding code itself is loader-agnostic.
 plugins {
 	id 'java'
 }
 
 group = maven_group
-version = "${mod_version}+mc${minecraft_version}"
+version = "${mod_version}+mc26.x"
 
 base {
 	archivesName = mod_id
@@ -17,12 +19,25 @@ java {
 	targetCompatibility = JavaVersion.VERSION_25
 }
 
+sourceSets {
+	neoforge {
+		java {
+			srcDir 'src/neoforge/java'
+		}
+		resources {
+			srcDir 'src/neoforge/resources'
+		}
+		compileClasspath += sourceSets.main.output
+	}
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
 	compileOnly fileTree(dir: 'libs', include: '*.jar')
+	neoforgeImplementation files("libs/fml-loader-11.0.16.jar")
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -30,6 +45,29 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = 'UTF-8'
 }
 
+tasks.withType(Copy).configureEach {
+	it.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// Fabric jar: main classes + fabric.mod.json only
 jar {
+	archiveClassifier = 'fabric'
+	// resources come from main source set automatically
+}
+
+// NeoForge jar: main classes + neoforge entrypoint + neoforge.mods.toml
+tasks.register('neoforgeJar', Jar) {
+	archiveClassifier = 'neoforge'
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	dependsOn tasks.named('compileJava'), tasks.named('compileNeoforgeJava'), tasks.named('processNeoforgeResources')
+	sourceSets.main.output.classesDirs.each { from it }
+	sourceSets.neoforge.output.classesDirs.each { from it }
+	from sourceSets.neoforge.resources
+	manifest {
+		attributes('FMLModType': 'MOD')
+	}
+}
+
+tasks.named('build') {
+	dependsOn tasks.named('neoforgeJar')
 }

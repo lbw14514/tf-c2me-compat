@@ -12,7 +12,7 @@
 	},
 	"depends": {
 		"fabricloader": ">=0.18.3",
-		"minecraft": "26.2",
+		"minecraft": ">=26.1",
 		"twilightforest": "*",
 		"c2me": "*"
 	},
