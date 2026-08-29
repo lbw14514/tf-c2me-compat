@@ -1,6 +1,6 @@
 # tf-c2me-compat（暮色森林 × C2ME 兼容补丁）
 
-> **适用于**：MC **26.1.x / 26.2 / 26w14a**，Fabric 与 NeoForge 双加载器，对应暮色森林 [Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 的全部生产分支（26.1.x / 26.1.x-Fabric / 26.2.x / 26.2.x-Fabric / 26w14a / 26w14a-Fabric），C2ME 对应版本。**不支持** 26.3 开发线（`26.3.x-Fabric-dev`，尚在开发中、未实测）。详见下方版本矩阵。
+> **适用于**：MC **26.1.x / 26.2 / 26w14a**，Fabric 与 NeoForge 双加载器，对应暮色森林 [Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 的全部生产分支（26.1.x / 26.1.x-Fabric / 26.2.x / 26.2.x-Fabric / 26w14a / 26w14a-Fabric），C2ME 对应版本。**不支持** 26.3 开发线（`26.3.x-Fabric-dev`，尚在开发中、未实测 26.3c2me本就不稳定 api等等变化就失效 所以没做）。详见下方版本矩阵。
 
 ## 这是什么
 
@@ -35,11 +35,6 @@ C2ME 是区块生成性能优化 mod。
 
 日志里出现 `[TF-C2ME-Compat] Twilight Forest <-> C2ME dfc bindings active` 就说明生效了。
 
-## 已知限制
-
-- 暮色森林的"群系决定地形"路由器（`TerrainDensityRouter` 等）依赖在 Java 侧查询群系注册表，原理上无法进 GPU 内核——所以暮色维度不走 OpenCL，其余一切照常；
-- NeoForge 端的配置目录按当前工作目录的 `config/` 解析；
-- 崩溃时请附带 `logs/latest.log` 反馈。
 
 ## 自行构建（给开发者）
 
