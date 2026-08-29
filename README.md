@@ -2,15 +2,14 @@
 
 ## 这是什么
 
-一个让 **暮色森林**（[Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 26.2 Fabric 版）和 **C2ME** 完全兼容的小型补丁 mod。
+一个让 **暮色森林**（[Twilightforest-Re26](https://github.com/Lonmo0208/Twilightforest-Re26) 26.2 Fabric 版）和 **C2ME** 完全兼容的补丁 mod。
 
 C2ME 是区块生成性能优化 mod。
 
 ## 装了有什么效果
 
-- 暮色森林维度正常使用 C2ME 的多线程区块生成（不装本 mod 时 C2ME 也能多线程，但需要本 mod 修复的几处线程安全/崩溃问题）；
-- 暮色森林的地形函数接入 dfc 编译器，地形计算更快（不再走低效的逐点回退）；
-- 安装了 [C2ME OpenCL 加速模块](https://modrinth.com/mod/c2me-ocl) 的环境下不再崩溃：主世界/下界/末地走 GPU 加速，暮色森林维度自动回退 CPU 生成（暮色地形依赖群系查表，原理上无法进 GPU，这是唯一例外）。
+- 暮色森林维度正常使用 C2ME 的多线程区块生成 ;
+- 暮色森林的地形函数接入 dfc 编译器，地形计算更快；
 
 ## 怎么用
 
