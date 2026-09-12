@@ -73,6 +73,11 @@ public final class OpenclFallbackEnabler {
 		}
 	}
 
+	/** The [openclAccel] section header, matched as a whole line so comments or
+	 * values mentioning the name cannot be mistaken for the real section. */
+	private static final Pattern OPENCL_SECTION = Pattern.compile("(?m)^\\[openclAccel\\][ \\t]*(?:\\r?\\n|$)");
+	private static final Pattern ANY_SECTION = Pattern.compile("(?m)^\\[");
+
 	/**
 	 * Set {@code key = true} inside the [openclAccel] section. Handles the
 	 * quoted-expression values C2ME uses ("default", "false", "true") as well
@@ -80,28 +85,34 @@ public final class OpenclFallbackEnabler {
 	 * section at EOF if that is missing too.
 	 */
 	private static String setKey(String content, String key, String value) {
-		Pattern keyLine = Pattern.compile("(?m)^([ \\t]*)(" + Pattern.quote(key) + ")[ \\t]*=.*$");
-		Matcher matcher = keyLine.matcher(content);
-		if (matcher.find()) {
-			// Only rewrite the first occurrence inside [openclAccel]; verify scope cheaply by section scan
-			int sectionStart = content.indexOf("[openclAccel]");
-			int matchStart = matcher.start();
-			if (sectionStart >= 0 && matchStart > sectionStart) {
-				return content.substring(0, matchStart) + matcher.group(1) + key + " = " + value
-						+ content.substring(matcher.end());
-			}
-			return content;
+		Matcher header = OPENCL_SECTION.matcher(content);
+		int headerStart = -1;
+		int headerEnd = -1;
+		while (header.find()) {
+			headerStart = header.start();
+			headerEnd = header.end();
 		}
-		int sectionStart = content.indexOf("[openclAccel]");
-		if (sectionStart < 0) {
+		if (headerStart < 0) {
 			return content + "\n[openclAccel]\n\t" + key + " = " + value + "\n";
 		}
-		// insert at end of section (next section header or EOF)
-		Matcher nextSection = Pattern.compile("(?m)^\\[").matcher(content);
-		int insertAt = content.length();
-		if (nextSection.find(sectionStart + 1)) {
-			insertAt = nextSection.start();
+		// Bound the section by the next TOML header (or EOF) so a key of the
+		// same name in another section is never rewritten.
+		Matcher nextSection = ANY_SECTION.matcher(content);
+		int sectionEnd = content.length();
+		if (nextSection.find(headerEnd)) {
+			sectionEnd = nextSection.start();
 		}
-		return content.substring(0, insertAt) + "\t" + key + " = " + value + "\n" + content.substring(insertAt);
+		Matcher keyLine = Pattern.compile("(?m)^([ \\t]*)(" + Pattern.quote(key) + ")[ \\t]*=.*$")
+				.matcher(content);
+		if (keyLine.find(headerStart) && keyLine.end() <= sectionEnd) {
+			return content.substring(0, keyLine.start()) + keyLine.group(1) + key + " = " + value
+					+ content.substring(keyLine.end());
+		}
+		// Key absent from the section: insert at the end of the section.
+		String prefix = content.substring(0, sectionEnd);
+		if (!prefix.endsWith("\n")) {
+			prefix += "\n";
+		}
+		return prefix + "\t" + key + " = " + value + "\n" + content.substring(sectionEnd);
 	}
 }
